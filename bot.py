@@ -21,7 +21,6 @@ bot = Bot(
 )
 async def leave(bot: Bot, message: Message):
     await vcpb.leave(message.chat.id)
-    await message.delete()
 
 
 @bot.on_message(
@@ -31,7 +30,6 @@ async def leave(bot: Bot, message: Message):
 )
 async def pause(bot: Bot, message: Message):
     await vcpb.pause(message.chat.id)
-    await message.delete()
 
 
 @bot.on_message(
@@ -41,7 +39,6 @@ async def pause(bot: Bot, message: Message):
 )
 async def resume(bot: Bot, message: Message):
     await vcpb.resume(message.chat.id)
-    await message.delete()
 
 
 @bot.on_message(
@@ -55,7 +52,7 @@ async def youtube(bot: Bot, message: Message):
     try:
         url = message.command[1]
     except IndexError:
-        url = message.reply_to_message.text
+        url = message.reply_to_message.text if message.reply_to_message else ""
 
     if not is_youtube(url):
         await message.reply_text("Give me a YouTube link.")
@@ -79,7 +76,7 @@ async def playfile(bot: Bot, message: Message):
     try:
         file_path = message.command[1]
     except IndexError:
-        file_path = message.reply_to_message.text
+        file_path = message.reply_to_message.text if message.reply_to_message else ""
 
     if "[" in file_path:
         file_path = file_path.split()[0][:-1][1:]
