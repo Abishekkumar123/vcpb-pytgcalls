@@ -7,7 +7,7 @@ telegram_client = TelegramClient(SESSION_NAME, API_ID, API_HASH)
 pytgcalls = PyTgCalls()
 
 
-@pytgcalls.on_event_update
+@pytgcalls.on_event_update()
 def a(update):
     print(update)
     return {"AA": "SS"}
