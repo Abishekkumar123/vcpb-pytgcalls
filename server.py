@@ -5,6 +5,14 @@ from config import SESSION_NAME, API_ID, API_HASH
 
 telegram_client = TelegramClient(SESSION_NAME, API_ID, API_HASH)
 pytgcalls = PyTgCalls()
+
+
+@pytgcalls.on_event_update
+def a(update):
+    print(update)
+    return {"AA": "SS"}
+
+
 open("server.env", "w+").write(
     "\n".join(
         f"{k}={v!r}" for k, v in {"HOST": pytgcalls._host, "PORT": pytgcalls._port, "SESSION_ID": pytgcalls._session_id}.items()
